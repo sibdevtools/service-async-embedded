@@ -110,9 +110,7 @@ public class LocalAsyncServiceConfig {
 
     @Bean
     public Flyway localAsyncFlyway(@Qualifier("localAsyncFlywayConfiguration") ClassicConfiguration configuration) {
-        var flyway = new Flyway(configuration);
-        flyway.migrate();
-        return flyway;
+        return new Flyway(configuration);
     }
 
     @Bean

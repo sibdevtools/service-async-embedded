@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 /**
  * @author sibmaks
  * @since 0.0.1
@@ -20,4 +22,5 @@ import org.springframework.context.annotation.Configuration;
 public class LocalAsyncServiceProperties {
     private LocalAsyncCleanUpServiceProperties cleanUp;
     private LocalAsyncExecutorServiceProperties executor;
+    private List<String> folders2Create;
 }
