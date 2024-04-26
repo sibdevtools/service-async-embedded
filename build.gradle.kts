@@ -38,7 +38,11 @@ dependencies {
     implementation("org.apache.commons", "commons-lang3", "${project.property("lib_commons_lang3_version")}")
 
     implementation("jakarta.annotation", "jakarta.annotation-api", "${project.property("lib_annotation_api_version")}")
-    implementation("jakarta.persistence", "jakarta.persistence-api", "${project.property("lib_persistence_api_version")}")
+    implementation(
+        "jakarta.persistence",
+        "jakarta.persistence-api",
+        "${project.property("lib_persistence_api_version")}"
+    )
 
     implementation("com.github.simple-mocks", "api-async", "${project.property("lib_api_async_version")}")
     implementation("com.github.simple-mocks", "api-error", "${project.property("lib_api_error_version")}")
@@ -88,6 +92,10 @@ tasks.test {
 
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
+}
+
+tasks.bootJar {
+    enabled = false
 }
 
 tasks.jar {
