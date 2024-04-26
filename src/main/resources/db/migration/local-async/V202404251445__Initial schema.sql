@@ -1,3 +1,7 @@
+CREATE SCHEMA IF NOT EXISTS async_service;
+
+SET SCHEMA async_service;
+
 CREATE TABLE IF NOT EXISTS async_task
 (
     task_uid           varchar(128) NOT NULL PRIMARY KEY,

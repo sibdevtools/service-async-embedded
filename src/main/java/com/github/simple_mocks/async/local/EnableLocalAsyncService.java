@@ -1,6 +1,7 @@
 package com.github.simple_mocks.async.local;
 
 import com.github.simple_mocks.async.local.conf.LocalAsyncServiceConfig;
+import com.github.simple_mocks.async.local.conf.LocalAsyncServiceJPAConfig;
 import com.github.simple_mocks.async.local.conf.LocalAsyncStarter;
 import com.github.simple_mocks.async.local.service.LocalAsyncTaskService;
 import org.springframework.context.annotation.Import;
@@ -20,6 +21,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import({LocalAsyncServiceConfig.class, LocalAsyncStarter.class})
+@Import({LocalAsyncServiceConfig.class, LocalAsyncServiceJPAConfig.class, LocalAsyncStarter.class})
 public @interface EnableLocalAsyncService {
 }

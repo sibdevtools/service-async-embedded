@@ -14,7 +14,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "async_task_param")
+@Table(schema = "async_service", name = "async_task_param")
 public class AsyncTaskParamEntity {
     @EmbeddedId
     private AsyncTaskParamEntityId entityId;

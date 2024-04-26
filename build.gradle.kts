@@ -55,8 +55,7 @@ dependencies {
 
     testImplementation("org.springframework.boot", "spring-boot-starter-data-jpa")
 
-    testImplementation("org.xerial", "sqlite-jdbc")
-    testImplementation("org.hibernate.orm", "hibernate-community-dialects")
+    testImplementation("com.h2database", "h2")
 
     testCompileOnly("org.projectlombok", "lombok", "${project.property("lib_lombok_version")}")
     testAnnotationProcessor("org.projectlombok", "lombok", "${project.property("lib_lombok_version")}")

@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.SneakyThrows;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,6 +27,7 @@ public class LocalAsyncStarter {
 
     @SneakyThrows
     @PostConstruct
+    @Transactional
     public void setUp() {
         var folders2create = Optional.ofNullable(properties.getFolders2Create())
                 .orElseGet(Collections::emptyList);

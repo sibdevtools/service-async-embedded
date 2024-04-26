@@ -16,7 +16,7 @@ import java.time.ZonedDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "async_task")
+@Table(schema = "async_service", name = "async_task")
 public class AsyncTaskEntity {
     @Id
     @Column(name = "task_uid", nullable = false, length = 128)
