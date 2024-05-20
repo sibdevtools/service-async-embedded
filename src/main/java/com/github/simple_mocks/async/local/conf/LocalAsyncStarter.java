@@ -1,5 +1,6 @@
 package com.github.simple_mocks.async.local.conf;
 
+import com.github.simple_mocks.async.local.conf.properties.LocalAsyncServiceProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.SneakyThrows;
 import org.flywaydb.core.Flyway;

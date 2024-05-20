@@ -1,5 +1,6 @@
 package com.github.simple_mocks.async.local.conf;
 
+import com.github.simple_mocks.async.local.conf.properties.LocalAsyncServiceProperties;
 import com.github.simple_mocks.async.local.repository.AsyncTaskEntityRepository;
 import com.github.simple_mocks.async.local.repository.AsyncTaskParamEntityRepository;
 import com.github.simple_mocks.async.local.service.*;

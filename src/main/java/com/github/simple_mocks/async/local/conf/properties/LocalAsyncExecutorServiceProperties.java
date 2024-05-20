@@ -1,4 +1,4 @@
-package com.github.simple_mocks.async.local.conf;
+package com.github.simple_mocks.async.local.conf.properties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

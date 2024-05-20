@@ -31,7 +31,7 @@ import java.util.Objects;
         entityManagerFactoryRef = "localAsyncEntityManagerFactory",
         transactionManagerRef = "localAsyncTransactionManager"
 )
-public class LocalAsyncServiceJPAConfig {
+public class LocalAsyncServiceJPAPrivateConfig {
 
     @Bean
     @ConfigurationProperties("spring.datasource.local-async")
