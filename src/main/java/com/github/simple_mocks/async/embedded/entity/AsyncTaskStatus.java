@@ -1,4 +1,4 @@
-package com.github.simple_mocks.async.local.entity;
+package com.github.simple_mocks.async.embedded.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

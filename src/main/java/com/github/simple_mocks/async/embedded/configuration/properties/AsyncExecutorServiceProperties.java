@@ -1,4 +1,4 @@
-package com.github.simple_mocks.async.local.conf;
+package com.github.simple_mocks.async.embedded.configuration.properties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @NoArgsConstructor
 @AllArgsConstructor
-public class LocalAsyncExecutorServiceProperties {
+public class AsyncExecutorServiceProperties {
     private int parallelTasks = Runtime.getRuntime().availableProcessors();
 
     /**

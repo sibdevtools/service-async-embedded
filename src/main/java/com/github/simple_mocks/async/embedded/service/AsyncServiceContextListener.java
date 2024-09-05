@@ -1,8 +1,7 @@
-package com.github.simple_mocks.async.local.service;
+package com.github.simple_mocks.async.embedded.service;
 
 import com.github.simple_mocks.async.api.service.AsyncTaskProcessor;
 import com.github.simple_mocks.async.api.service.AsyncTaskProcessorMeta;
-import com.github.simple_mocks.async.local.service.LocalAsyncTaskProcessorRegistry;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
@@ -10,10 +9,10 @@ import org.springframework.context.event.ContextRefreshedEvent;
  * @author sibmaks
  * @since 0.0.1
  */
-public class LocalAsyncServiceContextListener implements ApplicationListener<ContextRefreshedEvent> {
-    private final LocalAsyncTaskProcessorRegistry processorRegistry;
+public class AsyncServiceContextListener implements ApplicationListener<ContextRefreshedEvent> {
+    private final AsyncTaskProcessorRegistryEmbedded processorRegistry;
 
-    public LocalAsyncServiceContextListener(LocalAsyncTaskProcessorRegistry processorRegistry) {
+    public AsyncServiceContextListener(AsyncTaskProcessorRegistryEmbedded processorRegistry) {
         this.processorRegistry = processorRegistry;
     }
 

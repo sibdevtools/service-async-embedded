@@ -1,8 +1,8 @@
-package com.github.simple_mocks.async.local.service;
+package com.github.simple_mocks.async.embedded.service;
 
-import com.github.simple_mocks.async.api.AsyncErrors;
 import com.github.simple_mocks.async.api.service.AsyncTaskProcessor;
 import com.github.simple_mocks.async.api.service.AsyncTaskProcessorMeta;
+import com.github.simple_mocks.async.embedded.exception.UnexpectedServiceError;
 import com.github.simple_mocks.error_service.exception.ServiceException;
 
 import java.util.Map;
@@ -13,11 +13,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author sibmaks
  * @since 0.0.1
  */
-public class LocalAsyncTaskProcessorRegistry {
+public class AsyncTaskProcessorRegistryEmbedded {
     private final Map<String, AsyncTaskProcessor> unVersionedTaskProcessors;
     private final Map<String, Map<String, AsyncTaskProcessor>> versionedTaskProcessors;
 
-    public LocalAsyncTaskProcessorRegistry() {
+    public AsyncTaskProcessorRegistryEmbedded() {
         this.unVersionedTaskProcessors = new ConcurrentHashMap<>();
         this.versionedTaskProcessors = new ConcurrentHashMap<>();
     }
@@ -35,9 +35,7 @@ public class LocalAsyncTaskProcessorRegistry {
                 .map(it -> it.get(version))
                 .orElseGet(() -> unVersionedTaskProcessors.get(type));
         if (processor == null) {
-            throw new ServiceException(
-                    AsyncErrors.UNEXPECTED_ERROR, "No processor for task: %s#%s".formatted(type, version)
-            );
+            throw new UnexpectedServiceError("No processor for task: %s#%s".formatted(type, version));
         }
         return processor;
     }
@@ -53,9 +51,7 @@ public class LocalAsyncTaskProcessorRegistry {
         var versions = asyncTaskProcessorMeta.taskVersions();
         if (versions == null || versions.length == 0) {
             if (unVersionedTaskProcessors.putIfAbsent(type, processor) != null) {
-                throw new ServiceException(
-                        AsyncErrors.UNEXPECTED_ERROR, "UnVersion processor for task %s already exists".formatted(type)
-                );
+                throw new UnexpectedServiceError("UnVersion processor for task %s already exists".formatted(type));
             }
         } else {
             var taskProcessors = versionedTaskProcessors.computeIfAbsent(
@@ -64,8 +60,7 @@ public class LocalAsyncTaskProcessorRegistry {
             );
             for (var version : versions) {
                 if (taskProcessors.putIfAbsent(version, processor) != null) {
-                    throw new ServiceException(
-                            AsyncErrors.UNEXPECTED_ERROR,
+                    throw new UnexpectedServiceError(
                             "Version processor for task %s#%s already exists".formatted(type, version)
                     );
                 }

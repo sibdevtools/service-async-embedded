@@ -1,10 +1,10 @@
-package com.github.simple_mocks.async.local.service;
+package com.github.simple_mocks.async.embedded.service;
 
-import com.github.simple_mocks.async.local.conf.LocalAsyncCleanUpServiceProperties;
-import com.github.simple_mocks.async.local.conf.LocalAsyncServiceProperties;
-import com.github.simple_mocks.async.local.entity.AsyncTaskStatus;
-import com.github.simple_mocks.async.local.repository.AsyncTaskEntityRepository;
-import com.github.simple_mocks.async.local.repository.AsyncTaskParamEntityRepository;
+import com.github.simple_mocks.async.embedded.configuration.properties.AsyncCleanUpServiceProperties;
+import com.github.simple_mocks.async.embedded.configuration.properties.AsyncServiceEmbeddedProperties;
+import com.github.simple_mocks.async.embedded.entity.AsyncTaskStatus;
+import com.github.simple_mocks.async.embedded.repository.AsyncTaskEntityRepository;
+import com.github.simple_mocks.async.embedded.repository.AsyncTaskParamEntityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,14 +21,14 @@ import java.util.Arrays;
  * @since 0.0.1
  */
 @Slf4j
-public class LocalAsyncCleanUpService {
-    private final LocalAsyncCleanUpServiceProperties properties;
+public class AsyncCleanUpServiceEmbedded {
+    private final AsyncCleanUpServiceProperties properties;
     private final AsyncTaskParamEntityRepository asyncTaskParamEntityRepository;
     private final AsyncTaskEntityRepository asyncTaskEntityRepository;
 
-    public LocalAsyncCleanUpService(LocalAsyncServiceProperties properties,
-                                    AsyncTaskParamEntityRepository asyncTaskParamEntityRepository,
-                                    AsyncTaskEntityRepository asyncTaskEntityRepository) {
+    public AsyncCleanUpServiceEmbedded(AsyncServiceEmbeddedProperties properties,
+                                       AsyncTaskParamEntityRepository asyncTaskParamEntityRepository,
+                                       AsyncTaskEntityRepository asyncTaskEntityRepository) {
         this.properties = properties.getCleanUp();
         this.asyncTaskParamEntityRepository = asyncTaskParamEntityRepository;
         this.asyncTaskEntityRepository = asyncTaskEntityRepository;
@@ -38,7 +38,7 @@ public class LocalAsyncCleanUpService {
             isolation = Isolation.REPEATABLE_READ,
             propagation = Propagation.REQUIRES_NEW
     )
-    @Scheduled(cron = "${service.local.async.clean-up.cron}", scheduler = "localAsyncScheduledExecutor")
+    @Scheduled(cron = "${service.embedded.async.clean-up.cron}", scheduler = "asyncScheduledExecutor")
     public void execute() {
         var finalStatuses = Arrays.stream(AsyncTaskStatus.values())
                 .filter(AsyncTaskStatus::isFinalStatus)
@@ -57,11 +57,9 @@ public class LocalAsyncCleanUpService {
                 pageable
         );
 
-        log.info("Delete params");
         asyncTaskParamEntityRepository.deleteAllByEntityId_UidIn(toDelete);
-        log.info("Delete tasks");
+
         asyncTaskEntityRepository.deleteAllById(toDelete);
-        log.info("Commit");
     }
 
 }

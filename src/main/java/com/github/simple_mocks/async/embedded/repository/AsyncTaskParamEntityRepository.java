@@ -1,7 +1,7 @@
-package com.github.simple_mocks.async.local.repository;
+package com.github.simple_mocks.async.embedded.repository;
 
-import com.github.simple_mocks.async.local.entity.AsyncTaskParamEntity;
-import com.github.simple_mocks.async.local.entity.AsyncTaskParamEntityId;
+import com.github.simple_mocks.async.embedded.entity.AsyncTaskParamEntity;
+import com.github.simple_mocks.async.embedded.entity.AsyncTaskParamEntityId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

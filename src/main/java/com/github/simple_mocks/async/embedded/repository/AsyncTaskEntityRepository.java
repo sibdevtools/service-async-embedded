@@ -1,9 +1,11 @@
-package com.github.simple_mocks.async.local.repository;
+package com.github.simple_mocks.async.embedded.repository;
 
-import com.github.simple_mocks.async.local.entity.AsyncTaskEntity;
-import com.github.simple_mocks.async.local.entity.AsyncTaskStatus;
+import com.github.simple_mocks.async.embedded.entity.AsyncTaskEntity;
+import com.github.simple_mocks.async.embedded.entity.AsyncTaskStatus;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -36,6 +38,7 @@ public interface AsyncTaskEntityRepository extends JpaRepository<AsyncTaskEntity
     @Query("select o.uid from AsyncTaskEntity o where" +
             " o.lastRetryAt <= :lastRetryAt AND" +
             " o.status in :finalStatuses")
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<String> findUidsToDelete(
             @Param("lastRetryAt") ZonedDateTime lastRetryAt,
             @Param("finalStatuses") List<AsyncTaskStatus> finalStatuses,

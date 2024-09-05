@@ -1,13 +1,13 @@
-package com.github.simple_mocks.async.local.service;
+package com.github.simple_mocks.async.embedded.service;
 
 import com.github.simple_mocks.async.api.rq.CreateAsyncTaskRq;
 import com.github.simple_mocks.async.api.service.AsyncTaskService;
-import com.github.simple_mocks.async.local.entity.AsyncTaskEntity;
-import com.github.simple_mocks.async.local.entity.AsyncTaskParamEntity;
-import com.github.simple_mocks.async.local.entity.AsyncTaskParamEntityId;
-import com.github.simple_mocks.async.local.entity.AsyncTaskStatus;
-import com.github.simple_mocks.async.local.repository.AsyncTaskEntityRepository;
-import com.github.simple_mocks.async.local.repository.AsyncTaskParamEntityRepository;
+import com.github.simple_mocks.async.embedded.entity.AsyncTaskEntity;
+import com.github.simple_mocks.async.embedded.entity.AsyncTaskParamEntity;
+import com.github.simple_mocks.async.embedded.entity.AsyncTaskParamEntityId;
+import com.github.simple_mocks.async.embedded.entity.AsyncTaskStatus;
+import com.github.simple_mocks.async.embedded.repository.AsyncTaskEntityRepository;
+import com.github.simple_mocks.async.embedded.repository.AsyncTaskParamEntityRepository;
 import jakarta.annotation.Nonnull;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -19,18 +19,18 @@ import java.time.ZonedDateTime;
  * @author sibmaks
  * @since 0.0.1
  */
-public class LocalAsyncTaskService implements AsyncTaskService {
+public class AsyncTaskServiceEmbedded implements AsyncTaskService {
     private final AsyncTaskEntityRepository asyncTaskEntityRepository;
     private final AsyncTaskParamEntityRepository asyncTaskParamEntityRepository;
 
     /**
-     * Construct local async task registration service
+     * Construct async task registration embedded service
      *
      * @param asyncTaskEntityRepository      entity repository
      * @param asyncTaskParamEntityRepository param entity repository
      */
-    public LocalAsyncTaskService(AsyncTaskEntityRepository asyncTaskEntityRepository,
-                                 AsyncTaskParamEntityRepository asyncTaskParamEntityRepository) {
+    public AsyncTaskServiceEmbedded(AsyncTaskEntityRepository asyncTaskEntityRepository,
+                                    AsyncTaskParamEntityRepository asyncTaskParamEntityRepository) {
         this.asyncTaskEntityRepository = asyncTaskEntityRepository;
         this.asyncTaskParamEntityRepository = asyncTaskParamEntityRepository;
     }

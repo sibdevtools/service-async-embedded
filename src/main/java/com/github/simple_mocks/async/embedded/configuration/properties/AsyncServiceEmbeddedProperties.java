@@ -1,4 +1,4 @@
-package com.github.simple_mocks.async.local.conf;
+package com.github.simple_mocks.async.embedded.configuration.properties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
 
 /**
  * @author sibmaks
@@ -18,9 +16,8 @@ import java.util.List;
 @Configuration
 @NoArgsConstructor
 @AllArgsConstructor
-@ConfigurationProperties("service.local.async")
-public class LocalAsyncServiceProperties {
-    private LocalAsyncCleanUpServiceProperties cleanUp;
-    private LocalAsyncExecutorServiceProperties executor;
-    private List<String> folders2Create;
+@ConfigurationProperties("service.embedded.async")
+public class AsyncServiceEmbeddedProperties {
+    private AsyncCleanUpServiceProperties cleanUp;
+    private AsyncExecutorServiceProperties executor;
 }

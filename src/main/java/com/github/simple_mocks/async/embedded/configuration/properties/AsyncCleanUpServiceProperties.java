@@ -1,4 +1,4 @@
-package com.github.simple_mocks.async.local.conf;
+package com.github.simple_mocks.async.embedded.configuration.properties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import java.time.temporal.ChronoUnit;
 @Configuration
 @NoArgsConstructor
 @AllArgsConstructor
-public class LocalAsyncCleanUpServiceProperties {
+public class AsyncCleanUpServiceProperties {
     private int maxRemovedAtOnce = 32;
     private ChronoUnit taskTTLType = ChronoUnit.DAYS;
     private long taskTTL = 3;

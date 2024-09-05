@@ -1,4 +1,4 @@
-package com.github.simple_mocks.async.local;
+package com.github.simple_mocks.async.embedded;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

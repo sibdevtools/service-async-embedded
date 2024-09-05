@@ -1,17 +1,17 @@
-package com.github.simple_mocks.async.local.service;
+package com.github.simple_mocks.async.embedded.service;
 
 import com.github.simple_mocks.async.api.entity.AsyncTask;
 import com.github.simple_mocks.async.api.rs.AsyncTaskProcessingResult;
 import com.github.simple_mocks.async.api.rs.AsyncTaskProcessingResultBuilder;
 import com.github.simple_mocks.async.api.rs.AsyncTaskProcessingRetryResult;
 import com.github.simple_mocks.async.api.service.AsyncTaskProcessor;
-import com.github.simple_mocks.async.local.conf.LocalAsyncExecutorServiceProperties;
-import com.github.simple_mocks.async.local.conf.LocalAsyncServiceProperties;
-import com.github.simple_mocks.async.local.entity.AsyncTaskEntity;
-import com.github.simple_mocks.async.local.entity.AsyncTaskParamEntity;
-import com.github.simple_mocks.async.local.entity.AsyncTaskStatus;
-import com.github.simple_mocks.async.local.repository.AsyncTaskEntityRepository;
-import com.github.simple_mocks.async.local.repository.AsyncTaskParamEntityRepository;
+import com.github.simple_mocks.async.embedded.configuration.properties.AsyncExecutorServiceProperties;
+import com.github.simple_mocks.async.embedded.configuration.properties.AsyncServiceEmbeddedProperties;
+import com.github.simple_mocks.async.embedded.entity.AsyncTaskEntity;
+import com.github.simple_mocks.async.embedded.entity.AsyncTaskParamEntity;
+import com.github.simple_mocks.async.embedded.entity.AsyncTaskStatus;
+import com.github.simple_mocks.async.embedded.repository.AsyncTaskEntityRepository;
+import com.github.simple_mocks.async.embedded.repository.AsyncTaskParamEntityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -27,26 +27,26 @@ import java.util.stream.Collectors;
  * @since 0.0.1
  */
 @Slf4j
-public class LocalAsyncTaskExecutor {
-    private final LocalAsyncTaskProcessorRegistry asyncTaskProcessorRegistry;
+public class AsyncTaskExecutorEmbedded {
+    private final AsyncTaskProcessorRegistryEmbedded asyncTaskProcessorRegistry;
     private final AsyncTaskEntityRepository asyncTaskEntityRepository;
     private final AsyncTaskParamEntityRepository asyncTaskParamEntityRepository;
-    private final LocalAsyncExecutorServiceProperties properties;
-    private final ExecutorService localAsyncAsyncTaskExecutor;
+    private final AsyncExecutorServiceProperties properties;
+    private final ExecutorService asyncTaskExecutor;
 
-    public LocalAsyncTaskExecutor(LocalAsyncTaskProcessorRegistry asyncTaskProcessorRegistry,
-                                  AsyncTaskEntityRepository asyncTaskEntityRepository,
-                                  AsyncTaskParamEntityRepository asyncTaskParamEntityRepository,
-                                  LocalAsyncServiceProperties properties,
-                                  ExecutorService localAsyncAsyncTaskExecutor) {
+    public AsyncTaskExecutorEmbedded(AsyncTaskProcessorRegistryEmbedded asyncTaskProcessorRegistry,
+                                     AsyncTaskEntityRepository asyncTaskEntityRepository,
+                                     AsyncTaskParamEntityRepository asyncTaskParamEntityRepository,
+                                     AsyncServiceEmbeddedProperties properties,
+                                     ExecutorService asyncTaskExecutor) {
         this.asyncTaskProcessorRegistry = asyncTaskProcessorRegistry;
         this.asyncTaskEntityRepository = asyncTaskEntityRepository;
         this.asyncTaskParamEntityRepository = asyncTaskParamEntityRepository;
         this.properties = properties.getExecutor();
-        this.localAsyncAsyncTaskExecutor = localAsyncAsyncTaskExecutor;
+        this.asyncTaskExecutor = asyncTaskExecutor;
     }
 
-    @Scheduled(fixedRateString = "${service.local.async.executor.rate}", scheduler = "localAsyncScheduledExecutor")
+    @Scheduled(fixedRateString = "${service.embedded.async.executor.rate}", scheduler = "asyncScheduledExecutor")
     public void execute() {
         var parallelTasks = properties.getParallelTasks();
         var pageable = Pageable.ofSize(parallelTasks);
@@ -59,7 +59,7 @@ public class LocalAsyncTaskExecutor {
                 .toList();
 
         try {
-            var futures = localAsyncAsyncTaskExecutor.invokeAll(callables);
+            var futures = asyncTaskExecutor.invokeAll(callables);
             for (var future : futures) {
                 try {
                     future.get();
