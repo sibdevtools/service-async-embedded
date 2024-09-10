@@ -35,9 +35,11 @@ public interface AsyncTaskEntityRepository extends JpaRepository<AsyncTaskEntity
      * @param pageable      paging
      * @return list of entities uids to remove
      */
-    @Query("select o.uid from AsyncTaskEntity o where" +
-            " o.lastRetryAt <= :lastRetryAt AND" +
-            " o.status in :finalStatuses")
+    @Query("""
+            select o.uid from async_task_async_task o where \
+             o.lastRetryAt <= :lastRetryAt AND\
+             o.status in :finalStatuses
+            """)
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<String> findUidsToDelete(
             @Param("lastRetryAt") ZonedDateTime lastRetryAt,
