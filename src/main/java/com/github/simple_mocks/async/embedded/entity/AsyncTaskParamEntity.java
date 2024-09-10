@@ -7,7 +7,7 @@ import lombok.*;
  * @author sibmaks
  * @since 0.0.1
  */
-@Entity
+@Entity(name = "async_task.async_task_param")
 @Getter
 @Setter
 @Builder
