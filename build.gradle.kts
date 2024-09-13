@@ -52,6 +52,7 @@ dependencies {
     implementation("jakarta.annotation:jakarta.annotation-api")
     implementation("jakarta.persistence:jakarta.persistence-api")
 
+    implementation("com.github.simple-mocks:api-common:${project.property("lib_api_common_version")}")
     implementation("com.github.simple-mocks:api-error:${project.property("lib_api_error_version")}")
     implementation("com.github.simple-mocks:api-content:${project.property("lib_api_content_version")}")
     implementation("com.github.simple-mocks:api-async:${project.property("lib_api_async_version")}")
