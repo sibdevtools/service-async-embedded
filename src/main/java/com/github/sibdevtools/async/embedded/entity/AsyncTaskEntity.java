@@ -21,7 +21,7 @@ public class AsyncTaskEntity {
     @Id
     @Column(name = "task_uid", nullable = false, length = 128)
     private String uid;
-    @Column(name = "task_type", nullable = false, length = 32)
+    @Column(name = "task_type", nullable = false, length = 64)
     private String type;
     @Column(name = "task_version", nullable = false, length = 16)
     private String version;
