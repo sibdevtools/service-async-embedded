@@ -2,7 +2,6 @@ package com.github.sibdevtools.async.embedded.configuration;
 
 import com.github.sibdevtools.async.embedded.configuration.properties.AsyncServiceEmbeddedFlywayProperties;
 import com.github.sibdevtools.async.embedded.configuration.properties.AsyncServiceEmbeddedProperties;
-import com.github.sibdevtools.async.embedded.service.AsyncTaskProcessorRegistryEmbedded;
 import com.github.sibdevtools.error.mutable.api.source.ErrorLocalizationsJsonSource;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.output.MigrateResult;
